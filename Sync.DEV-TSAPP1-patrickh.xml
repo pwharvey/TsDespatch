@@ -9385,7 +9385,12 @@ END
   <controller name="DespatchDocket" />
   <actionGroup id="ag2" />
   <action id="a3" />
-</move></c></log><log type="Application">
+</move></c><c y="NodeSet" t="2016-09-09T08:23:46"><controller name="DespatchDocket" />
+<actionGroup id="ag2" />
+<action id="a100" />
+<update>
+  <HeaderText>Send</HeaderText>
+</update></c></log><log type="Application">
   <c y="NodeSet" t="2016-07-13T13:39:41">
     <page name="Home" />
     <container id="container2" />
