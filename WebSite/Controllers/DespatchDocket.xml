@@ -126,7 +126,7 @@ from "wa"."qDespatchDespatchDocket" "qDespatchDespatchDocket"
       <action id="a1" commandName="Select" commandArgument="editForm1" />
     </actionGroup>
     <actionGroup id="ag2" scope="Form">
-      <action commandName="Custom" commandArgument="Send" headerText="Send Documents" confirmation="Send Documents?" id="a100" />
+      <action commandName="Custom" commandArgument="Send" headerText="Send" confirmation="Send Documents?" id="a100" />
       <action id="a3" commandName="Cancel" />
       <action id="a4" whenLastCommandName="Edit" commandName="Update" />
       <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
