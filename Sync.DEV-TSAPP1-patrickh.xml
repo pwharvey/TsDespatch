@@ -9363,7 +9363,29 @@ END
 <field name="ArriveTime" />
 <update>
   <Label>Arrived At</Label>
-</update></c></log><log type="Application">
+</update></c><c y="NodeSet" t="2016-09-09T07:35:01"><controller name="DespatchDocket" />
+<actionGroup id="ag2" />
+<insert type="action">
+  <CommandName>Custom</CommandName>
+  <CommandArgument>Send</CommandArgument>
+  <HeaderText>Send Documents</HeaderText>
+  <CausesValidation>true</CausesValidation>
+  <Confirmation>Send Documents?</Confirmation>
+</insert></c><c y="NodeSet" t="2016-09-09T07:35:07"><controller name="DespatchDocket" />
+<actionGroup id="ag2" />
+<action id="a3" />
+<move>
+  <controller name="DespatchDocket" />
+  <actionGroup id="ag2" />
+  <action id="a100" />
+</move></c><c y="NodeSet" t="2016-09-09T07:35:09"><controller name="DespatchDocket" />
+<actionGroup id="ag2" />
+<action id="a100" />
+<move>
+  <controller name="DespatchDocket" />
+  <actionGroup id="ag2" />
+  <action id="a3" />
+</move></c></log><log type="Application">
   <c y="NodeSet" t="2016-07-13T13:39:41">
     <page name="Home" />
     <container id="container2" />
