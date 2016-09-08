@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="Load" conflictDetection="overwriteChanges" label="Load" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchLoad"."LoadID" "LoadID"
+	,"qDespatchLoad"."BranchID" "BranchID"
+	,"qDespatchLoad"."BranchName" "BranchName"
+	,"qDespatchLoad"."TruckID" "TruckID"
+	,"qDespatchLoad"."TruckNo" "TruckNo"
+	,"qDespatchLoad"."ArriveTime" "ArriveTime"
+	,"qDespatchLoad"."DespatchTime" "DespatchTime"
+	,"qDespatchLoad"."Completed" "Completed"
+	,"qDespatchLoad"."Warnings" "Warnings"
+	,"qDespatchLoad"."Errors" "Errors"
+	,"qDespatchLoad"."LoadName" "LoadName"
+from "wa"."qDespatchLoad" "qDespatchLoad"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="LoadID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Load ID" />
+    <field name="BranchID" type="Int32" allowNulls="false" label="Branch ID" showInSummary="true" />
+    <field name="BranchName" type="String" allowNulls="false" label="Branch Name" length="50" showInSummary="true" />
+    <field name="TruckID" type="Int32" allowNulls="false" label="Truck ID" showInSummary="true">
+      <items style="Lookup" dataController="Truck" dataView="grid1" dataTextField="TruckNo" dataValueField="TruckID" />
+    </field>
+    <field name="TruckNo" type="String" label="Truck No" length="250" showInSummary="true" />
+    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrive Time" showInSummary="true" />
+    <field name="DespatchTime" type="DateTime" dataFormatString="g" label="Despatch Time" />
+    <field name="Completed" type="Boolean" allowNulls="false" label="Completed" />
+    <field name="Warnings" type="String" allowQBE="false" allowSorting="false" label="Warnings" />
+    <field name="Errors" type="String" allowQBE="false" allowSorting="false" label="Errors" />
+    <field name="LoadName" type="String" label="Load Name" readOnly="true" length="327" />
+    <field name="TruckAndArrive" type="String" allowNulls="false" label="Truck And Arrive" allowQBE="false" allowSorting="false" computed="true" htmlEncode="false" hidden="false" length="100">
+      <formula>ISNULL([TruckNo], 'Unknown') +  ' Arrived at  ' + CONVERT(nvarchar(30), [ArriveTime], 8) + ' on ' + CONVERT(nvarchar(30), [ArriveTime], 103)</formula>
+    </field>
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Arrived Loads" sortExpression="[ArriveTime], [TruckNo]">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="TruckNo" columns="10" />
+        <dataField fieldName="ArriveTime" columns="20" />
+        <dataField fieldName="BranchName" columns="50" search="Required" />
+        <dataField fieldName="Warnings" rows="5" hidden="true" />
+        <dataField fieldName="Errors" rows="5" hidden="true" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Load">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" floating="true" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="TruckID" columns="15" aliasFieldName="TruckNo" />
+            <dataField fieldName="ArriveTime" columns="20" />
+            <dataField fieldName="BranchName" columns="50" textMode="Static" />
+            <dataField fieldName="LoadName" rows="5" hidden="true" />
+          </dataFields>
+        </category>
+        <category headerText="Errors" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="Errors" textMode="Static" />
+            <dataField fieldName="Warnings" textMode="Static" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action commandName="Custom" commandArgument="Complete" headerText="Complete" id="a100" confirmation="_controller=LoadComplete" />
+      <action commandName="Custom" commandArgument="NotArrived" headerText="Not Arrived" id="a101" confirmation="Remove all verified packs and re-add to planned loads?" />
+      <action id="a1" commandName="Edit" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag100" scope="ActionBar" headerText="Flat" flat="true" />
+  </actions>
+  <businessRules>
+    <rule id="r100" commandName="Select" type="Sql" phase="Execute"><![CDATA[SET @Session_LoadID = @LoadID]]></rule>
+    <rule id="r101" commandName="Custom" commandArgument="Complete" type="Sql" phase="Execute"><![CDATA[DECLARE @DisplayWarnings nvarchar(max)
+DECLARE @DisplayErrors nvarchar(max)
+
+EXECUTE wa.pDespatchLoadComplete @LoadID, @DisplayWarnings OUTPUT, @DisplayErrors OUTPUT, @BusinessRules_UserName, 0
+
+IF NOT @DisplayErrors IS NULL
+BEGIN
+    SET @Result_ShowMessage = @DisplayErrors
+	SET @Result_Continue = 0
+END
+ELSE
+BEGIN
+	SET @Result_Continue = 1
+END]]></rule>
+    <rule id="r102" commandName="Custom" commandArgument="NotArrived" type="Sql" phase="Execute"><![CDATA[DECLARE @DisplayWarnings nvarchar(max)
+DECLARE @DisplayErrors nvarchar(max)
+
+EXECUTE wa.pDespatchLoadNotArrived @LoadID, @DisplayWarnings OUTPUT, @DisplayErrors OUTPUT, @BusinessRules_UserName
+
+IF NOT @DisplayErrors IS NULL
+BEGIN
+    SET @Result_ShowMessage = @DisplayErrors
+	SET @Result_Continue = 0
+END
+ELSE
+BEGIN
+	SET @Result_Continue = 1
+END]]></rule>
+  </businessRules>
+</dataController>

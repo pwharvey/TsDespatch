@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchDespatchDocket" alias="qDespatchDespatchDocket" created="2016-08-29T11:09:26" modified="2016-08-29T13:27:13" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys>
+    <foreignKey id="qDespatchLoadCompleted" parentTableSchema="wa" parentTableName="qDespatchLoadCompleted" x="348" y="20">
+      <foreignKeyColumn columnName="LoadID" parentColumnName="LoadID" />
+    </foreignKey>
+  </foreignKeys>
+  <columns>
+    <column fieldName="LoadID" name="LoadID" label="Load ID" aliasColumnName="LoadName" aliasForeignKey="qDespatchLoadCompleted" />
+    <column name="LoadName" fieldName="LoadName" label="Load Name" foreignKey="qDespatchLoadCompleted" />
+    <column fieldName="DespatchID" name="DespatchID" label="Despatch ID" primaryKey="true" />
+    <column fieldName="DespatchDocketNo" name="DespatchDocketNo" label="Despatch Docket No" />
+    <column fieldName="DespatchDate" name="DespatchDate" label="Despatch Date" format="D" />
+    <column fieldName="Customer" name="Customer" label="Customer" />
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" />
+    <column fieldName="PickingOrderNo" name="PickingOrderNo" label="Picking Order No" />
+    <column fieldName="DespatchTypeName" name="DespatchTypeName" label="Despatch Type Name" />
+    <column fieldName="TruckID" name="TruckID" label="Truck ID" />
+    <column fieldName="CarrierName" name="CarrierName" label="Carrier Name" />
+    <column fieldName="DeliverToName" name="DeliverToName" label="Deliver To Name" />
+    <column fieldName="DeliverToAddress1" name="DeliverToAddress1" label="Deliver To Address1" />
+    <column fieldName="DeliverToAddress2" name="DeliverToAddress2" label="Deliver To Address2" />
+    <column fieldName="DeliverToCity" name="DeliverToCity" label="Deliver To City" />
+    <column fieldName="LoadSize" name="LoadSize" label="Load Size" />
+    <column fieldName="Time" name="Time" label="Time" />
+    <column fieldName="LocationCode" name="LocationCode" label="Location Code" />
+    <column fieldName="Return" name="Return" label="Return" />
+    <column fieldName="TotalNetCube" name="TotalNetCube" label="Total Net Cube" format="c" />
+    <column fieldName="ArriveTime" name="ArriveTime" label="Arrive Time" format="g" />
+    <column fieldName="DespatchTime" name="DespatchTime" label="Despatch Time" format="g" />
+    <column fieldName="InvoiceNo" name="InvoiceNo" label="Invoice No" />
+    <column fieldName="InvoiceDate" name="InvoiceDate" label="Invoice Date" format="g" />
+  </columns>
+</dataModel>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchDespatchPacket" alias="qDespatchDespatchPacket" created="2016-08-29T11:57:38" modified="2016-08-29T13:25:42" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="DespatchID" name="DespatchID" label="Despatch ID" />
+    <column fieldName="PacketHistoryID" name="PacketHistoryID" label="Packet History ID" primaryKey="true" />
+    <column fieldName="CustomerCode" name="CustomerCode" label="Customer Code" />
+    <column fieldName="CustomerName" name="CustomerName" label="Customer Name" />
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" />
+    <column fieldName="OrderItemNo" name="OrderItemNo" label="Order Item No" />
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" />
+    <column fieldName="GradeCode" name="GradeCode" label="Grade Code" />
+    <column fieldName="TreatmentCode" name="TreatmentCode" label="Treatment Code" />
+    <column fieldName="DrynessCode" name="DrynessCode" label="Dryness Code" />
+    <column fieldName="FinishCode" name="FinishCode" label="Finish Code" />
+    <column fieldName="Width" name="Width" label="Width" />
+    <column fieldName="Thickness" name="Thickness" label="Thickness" />
+    <column fieldName="Length" name="Length" label="Length" />
+    <column fieldName="Cube" name="Cube" label="Cube" />
+    <column fieldName="Lineal" name="Lineal" label="Lineal" />
+    <column fieldName="Pieces" name="Pieces" label="Pieces" />
+    <column fieldName="NetCube" name="NetCube" label="Net Cube" format="c" />
+  </columns>
+</dataModel>

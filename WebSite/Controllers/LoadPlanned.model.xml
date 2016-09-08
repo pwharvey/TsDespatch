@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchLoadPlanned" alias="qDespatchLoadPlanned" created="2016-07-14T16:19:48" modified="2016-08-10T12:44:46" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="QueueID" name="QueueID" label="Queue ID" primaryKey="true" />
+    <column fieldName="PlannedDateTime" name="PlannedDateTime" label="Planned Date Time" format="g" />
+    <column fieldName="TruckID" name="TruckID" label="Truck ID" />
+    <column fieldName="TruckNo" name="TruckNo" label="Truck No" />
+    <column fieldName="PickingOrderNo" name="PickingOrderNo" label="Picking Order No" />
+    <column fieldName="ReceivingName" name="ReceivingName" label="Receiving Name" />
+    <column fieldName="ReceivingAddress" name="ReceivingAddress" label="Receiving Address" />
+    <column fieldName="ReceivingCity" name="ReceivingCity" label="Receiving City" />
+    <column fieldName="CartageInstructions" name="CartageInstructions" label="Cartage Instructions" />
+    <column fieldName="LoadSize" name="LoadSize" label="Load Size" />
+    <column fieldName="Export" name="Export" label="Export" />
+    <column fieldName="Arrived" name="Arrived" label="Arrived" />
+    <column fieldName="LoadID" name="LoadID" label="Load ID" />
+    <column fieldName="ArriveTime" name="ArriveTime" label="Arrive Time" format="g" />
+    <column name="Cancelled" fieldName="Cancelled" label="Cancelled" />
+    <column name="DespatchTime" fieldName="DespatchTime" label="Despatch Time" format="g" />
+    <column name="OrderedVolume" fieldName="OrderedVolume" label="Ordered Volume" />
+    <column name="PickedVolume" fieldName="PickedVolume" label="Picked Volume" />
+    <column name="MaxLength" fieldName="MaxLength" label="Max Length" />
+    <column name="RateType" fieldName="RateType" label="Rate Type" />
+    <column name="Completed" fieldName="Completed" label="Completed" />
+  </columns>
+</dataModel>

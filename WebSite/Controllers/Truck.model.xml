@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchTruck" alias="qDespatchTruck" created="2016-07-21T15:23:57" modified="2016-08-29T13:06:46" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="TruckID" name="TruckID" label="Truck ID" primaryKey="true" />
+    <column fieldName="TruckNo" name="TruckNo" label="Truck No" />
+  </columns>
+</dataModel>

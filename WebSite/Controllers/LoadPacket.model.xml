@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchLoadPacket" alias="qDespatchLoadPacket" created="2016-07-13T13:27:53" modified="2016-08-29T18:16:45" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys>
+    <foreignKey id="qDespatchPacketHistory" parentTableSchema="wa" parentTableName="qDespatchPacketHistory" x="325" y="20">
+      <foreignKeyColumn columnName="PacketHistoryID" parentColumnName="PacketHistoryID" />
+    </foreignKey>
+    <foreignKey id="qDespatchPickingOrderItem" parentTableSchema="wa" parentTableName="qDespatchPickingOrderItem" x="653" y="20">
+      <foreignKeyColumn columnName="OrderItemID" parentColumnName="OrderItemID" />
+    </foreignKey>
+  </foreignKeys>
+  <columns>
+    <column fieldName="LoadPacketID" name="LoadPacketID" label="Load Packet ID" primaryKey="true" />
+    <column fieldName="OrderItemID" name="OrderItemID" label="Order Item ID" />
+    <column name="PickingOrderNo" fieldName="PickingOrderNo" label="Picking Order No" foreignKey="qDespatchPickingOrderItem" />
+    <column name="PickingOrderItemNo" fieldName="PickingOrderItemNo" label="Picking Order Item No" foreignKey="qDespatchPickingOrderItem" />
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" />
+    <column name="GCSL" fieldName="PacketHistoryGcsl" label="Gcsl" foreignKey="qDespatchPacketHistory" />
+    <column name="Cube" fieldName="PacketHistoryCube" label="Packet History Cube" foreignKey="qDespatchPacketHistory" />
+    <column fieldName="VerifiedTime" name="VerifiedTime" label="Verified Time" format="g" />
+    <column fieldName="VerifiedBy" name="VerifiedBy" label="Verified By" />
+    <column fieldName="Errors" name="Errors" label="Errors" />
+    <column fieldName="Posted" name="Posted" label="Posted" />
+    <column name="LoadID" fieldName="LoadID" label="Load ID" />
+    <column name="Verified" fieldName="Verified" label="Verified" />
+    <column name="OrderNo" fieldName="OrderNo" label="Order No" />
+    <column name="Warnings" fieldName="Warnings" label="Warnings" />
+    <column name="PacketHistoryID" fieldName="PacketHistoryID" label="Packet History ID" />
+    <column name="PostedPacketHistoryID" fieldName="PostedPacketHistoryID" label="Posted Packet History ID" />
+    <column name="Unpicked" fieldName="Unpicked" label="Unpicked" />
+  </columns>
+</dataModel>

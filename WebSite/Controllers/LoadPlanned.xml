@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadPlanned" conflictDetection="overwriteChanges" label="Load Planned" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchLoadPlanned"."QueueID" "QueueID"
+	,"qDespatchLoadPlanned"."PlannedDateTime" "PlannedDateTime"
+	,"qDespatchLoadPlanned"."TruckID" "TruckID"
+	,"qDespatchLoadPlanned"."TruckNo" "TruckNo"
+	,"qDespatchLoadPlanned"."PickingOrderNo" "PickingOrderNo"
+	,"qDespatchLoadPlanned"."ReceivingName" "ReceivingName"
+	,"qDespatchLoadPlanned"."ReceivingAddress" "ReceivingAddress"
+	,"qDespatchLoadPlanned"."ReceivingCity" "ReceivingCity"
+	,"qDespatchLoadPlanned"."CartageInstructions" "CartageInstructions"
+	,"qDespatchLoadPlanned"."LoadSize" "LoadSize"
+	,"qDespatchLoadPlanned"."Export" "Export"
+	,"qDespatchLoadPlanned"."Arrived" "Arrived"
+	,"qDespatchLoadPlanned"."LoadID" "LoadID"
+	,"qDespatchLoadPlanned"."ArriveTime" "ArriveTime"
+	,"qDespatchLoadPlanned"."Cancelled" "Cancelled"
+	,"qDespatchLoadPlanned"."DespatchTime" "DespatchTime"
+	,"qDespatchLoadPlanned"."OrderedVolume" "OrderedVolume"
+	,"qDespatchLoadPlanned"."PickedVolume" "PickedVolume"
+	,"qDespatchLoadPlanned"."MaxLength" "MaxLength"
+	,"qDespatchLoadPlanned"."RateType" "RateType"
+	,"qDespatchLoadPlanned"."Completed" "Completed"
+from "wa"."qDespatchLoadPlanned" "qDespatchLoadPlanned"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="QueueID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Queue ID" />
+    <field name="PlannedDateTime" type="DateTime" dataFormatString="g" label="Planned" showInSummary="true" />
+    <field name="TruckID" type="Int32" label="Truck ID" showInSummary="true" readOnly="true" />
+    <field name="TruckNo" type="String" label="Truck No" length="250" showInSummary="true">
+      <items style="Lookup" dataController="Truck" dataView="grid1" dataTextField="TruckNo" dataValueField="TruckNo" />
+    </field>
+    <field name="PickingOrderNo" type="Int32" label="Picking Order No" showInSummary="true">
+      <items style="Lookup" dataController="PickingOrder" dataView="grid1" dataTextField="OrderNo" dataValueField="OrderNo" copy="ReceivingName=DeliverToName&#xD;&#xA;ReceivingAddress=DeliverToAddress1&#xD;&#xA;ReceivingCity=DeliverToCity&#xD;&#xA;CartageInstructions=CartageInstructions&#xD;&#xA;" />
+    </field>
+    <field name="ReceivingName" type="String" label="Receiving Name" length="50" showInSummary="true" />
+    <field name="ReceivingAddress" type="String" allowQBE="false" allowSorting="false" label="Receiving Address" />
+    <field name="ReceivingCity" type="String" label="Receiving City" length="50" />
+    <field name="CartageInstructions" type="String" allowQBE="false" allowSorting="false" label="Cartage Instructions" />
+    <field name="LoadSize" type="String" label="Load Size" length="1">
+      <items style="DropDownList">
+        <item value="F" text="Full Load" />
+        <item value="P" text="Part Load" />
+      </items>
+    </field>
+    <field name="Export" type="Boolean" label="Export" allowNulls="false">
+      <items style="CheckBox" />
+    </field>
+    <field name="Arrived" type="Boolean" label="Arrived" readOnly="true" allowNulls="false">
+      <items style="CheckBox" />
+    </field>
+    <field name="LoadID" type="Int32" label="Load ID" />
+    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrived" readOnly="true" />
+    <field name="Cancelled" type="Boolean" label="Cancelled" allowNulls="false">
+      <items style="CheckBox" />
+    </field>
+    <field name="DespatchTime" type="DateTime" dataFormatString="g" label="Despatched" readOnly="true" />
+    <field name="OrderedVolume" type="Decimal" label="Ordered Volume" readOnly="true" />
+    <field name="PickedVolume" type="Decimal" label="Picked Volume" readOnly="true" />
+    <field name="MaxLength" type="Decimal" label="Max Length" readOnly="true" />
+    <field name="RateType" type="String" label="Rate Type" length="10" readOnly="true" />
+    <field name="Completed" type="Boolean" label="Completed" />
+  </fields>
+  <views>
+    <view id="gridPlanned" type="Grid" commandId="command1" label="Planned" sortExpression="[PlannedDateTime], [TruckNo]" filter="[Arrived]=0 AND [Completed]=0 AND [Cancelled]=0">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PlannedDateTime" columns="20" />
+        <dataField fieldName="TruckNo" columns="10" />
+        <dataField fieldName="TruckID" columns="15" hidden="true" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="ReceivingName" columns="50" />
+        <dataField fieldName="ReceivingAddress" rows="5" />
+        <dataField fieldName="ReceivingCity" columns="50" tag="map-city" />
+        <dataField fieldName="CartageInstructions" rows="5" />
+        <dataField fieldName="LoadSize" columns="10" />
+        <dataField fieldName="Export" />
+        <dataField fieldName="Completed" />
+      </dataFields>
+    </view>
+    <view id="gridArrived" type="Grid" commandId="command1" label="Arrived" sortExpression="[ArriveTime], [TruckNo]" filter="[Arrived]=1 AND [DespatchTime] IS NULL">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PlannedDateTime" columns="20" />
+        <dataField fieldName="ArriveTime" columns="10" />
+        <dataField fieldName="TruckNo" columns="10" />
+        <dataField fieldName="TruckID" columns="15" hidden="true" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="ReceivingName" columns="50" />
+        <dataField fieldName="ReceivingAddress" rows="5" />
+        <dataField fieldName="ReceivingCity" columns="50" />
+        <dataField fieldName="CartageInstructions" rows="5" />
+        <dataField fieldName="LoadSize" columns="10" />
+        <dataField fieldName="Export" />
+        <dataField fieldName="Completed" />
+      </dataFields>
+    </view>
+    <view id="gridDespatched" type="Grid" commandId="command1" label="Despatched" sortExpression="[DespatchTime], [TruckNo]" filter="[Arrived]=1 AND NOT [DespatchTime] IS NULL">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PlannedDateTime" columns="20" />
+        <dataField fieldName="ArriveTime" columns="10" />
+        <dataField fieldName="TruckNo" columns="10" />
+        <dataField fieldName="TruckID" columns="15" hidden="true" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="ReceivingName" columns="50" />
+        <dataField fieldName="ReceivingAddress" rows="5" />
+        <dataField fieldName="ReceivingCity" columns="50" />
+        <dataField fieldName="CartageInstructions" rows="5" />
+        <dataField fieldName="LoadSize" columns="10" />
+        <dataField fieldName="Export" />
+        <dataField fieldName="Completed" />
+      </dataFields>
+    </view>
+    <view id="gridCancelled" type="Grid" commandId="command1" label="Cancelled" sortExpression="[PlannedDateTime], [TruckNo]" filter="[Cancelled]=1">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PlannedDateTime" columns="20" />
+        <dataField fieldName="TruckNo" columns="10" />
+        <dataField fieldName="TruckID" columns="15" hidden="true" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="ReceivingName" columns="50" />
+        <dataField fieldName="ReceivingAddress" rows="5" />
+        <dataField fieldName="ReceivingCity" columns="50" />
+        <dataField fieldName="CartageInstructions" rows="5" />
+        <dataField fieldName="LoadSize" columns="10" />
+        <dataField fieldName="Export" />
+        <dataField fieldName="Completed" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Despatch Queue">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="TruckNo" />
+            <dataField fieldName="PlannedDateTime" columns="20" dataFormatString="g" />
+            <dataField fieldName="ArriveTime" columns="10" />
+            <dataField fieldName="DespatchTime" columns="10" />
+            <dataField fieldName="Export" readOnly="true" />
+            <dataField fieldName="Completed" hidden="true" />
+            <dataField fieldName="Arrived" hidden="true" />
+            <dataField fieldName="Cancelled" hidden="true" />
+            <dataField fieldName="TruckID" columns="15" hidden="true" />
+          </dataFields>
+        </category>
+        <category headerText="Picking Order" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="PickingOrderNo" columns="15" readOnly="true" />
+            <dataField fieldName="ReceivingName" columns="50" />
+            <dataField fieldName="ReceivingAddress" rows="5" />
+            <dataField fieldName="ReceivingCity" columns="50" />
+            <dataField fieldName="CartageInstructions" rows="5" />
+            <dataField fieldName="LoadSize" columns="1" />
+            <dataField fieldName="PickedVolume" columns="15" />
+            <dataField fieldName="MaxLength" columns="15" />
+            <dataField fieldName="RateType" columns="10" />
+            <dataField fieldName="OrderedVolume" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="Create Despatch Queue">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="PlannedDateTime" columns="20" dataFormatString="g" />
+            <dataField fieldName="TruckID" columns="15" hidden="true" />
+            <dataField fieldName="TruckNo" />
+            <dataField fieldName="Export" />
+          </dataFields>
+        </category>
+        <category headerText="Picking Order" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="PickingOrderNo" columns="15" />
+            <dataField fieldName="ReceivingName" columns="50" />
+            <dataField fieldName="ReceivingAddress" rows="5" />
+            <dataField fieldName="ReceivingCity" columns="50" />
+            <dataField fieldName="CartageInstructions" rows="5" />
+            <dataField fieldName="LoadSize" columns="1" />
+            <dataField fieldName="MaxLength" columns="15" />
+            <dataField fieldName="RateType" columns="10" />
+            <dataField fieldName="OrderedVolume" columns="15" />
+            <dataField fieldName="PickedVolume" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a7" commandName="New" commandArgument="gridPlanned" />
+      <action id="a6" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action commandName="Custom" commandArgument="Arrived" headerText="Arrived" id="a100" whenClientScript="[Arrived]==0" />
+      <action id="a1" commandName="Edit" whenClientScript="[Arrived]==0" />
+      <action id="a2" commandName="SQL" headerText="Delete" whenKeySelected="true" whenClientScript="[Arrived]==0">
+        <data><![CDATA[DELETE
+FROM
+tDespatchQueue
+WHERE QueueID=@QueueID
+]]></data>
+      </action>
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag100" scope="ActionBar" headerText="Flat" flat="true">
+      <action commandName="SQL" headerText="Refresh" causesValidation="false" id="a101" cssClass="&lt;a class=&quot;ui-btn ui-btn-icon-left ui-btn-inline ui-icon-refresh&quot;&gt;refresh&lt;/a&gt;">
+        <data><![CDATA[SET @Result_Refresh = 1]]></data>
+      </action>
+    </actionGroup>
+    <actionGroup id="ag101" scope="ActionBar" headerText="Flat" flat="true">
+      <action commandName="Custom" commandArgument="GetDomestic" headerText="Get Domestic" id="a100" confirmation="_controller=LoadPlannedGetDomestic" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag102" scope="ActionBar" headerText="Flat" flat="true">
+      <action commandName="Custom" commandArgument="CreateExport" headerText="Create Export" id="a100" confirmation="_controller=LoadPlannedCreateExport" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+  <businessRules>
+    <rule id="r101" commandName="New" type="Sql" phase="Execute"><![CDATA[SET @Export = 0]]></rule>
+    <rule id="r100" commandName="Custom" commandArgument="Arrived" type="Sql" phase="Execute"><![CDATA[DECLARE @DisplayWarnings nvarchar(max)
+DECLARE @DisplayErrors nvarchar(max)
+DECLARE @NewLoadID int
+DECLARE @ArrivedTime datetime
+
+SET @ArrivedTime = GetDate()
+
+EXECUTE wa.pDespatchLoadPlannedArrived @QueueID, @ArrivedTime, @DisplayWarnings OUTPUT, @DisplayErrors OUTPUT, @BusinessRules_UserName, @NewLoadID OUTPUT
+
+IF NOT @DisplayErrors IS NULL
+BEGIN
+    SET @Result_ShowMessage = @DisplayErrors
+	SET @Result_Continue = 0
+END
+ELSE
+BEGIN
+	SET @Result_Continue = 1
+END]]></rule>
+    <rule id="r102" commandName="Custom" commandArgument="GetDomestic" type="Sql" phase="Execute"><![CDATA[EXECUTE wa.pDespatchLoadPlannedGetDomestic @Parameters_PlannedDate
+
+SET @Result_Continue = 1
+]]></rule>
+    <rule id="r103" commandName="Custom" commandArgument="CreateExport" type="Sql" phase="Execute"><![CDATA[EXECUTE wa.pDespatchLoadPlannedCreateExport @Parameters_Trucks, @Parameters_ReceivingName, @Parameters_ReceivingCity, @Parameters_CartageInstructions, @Parameters_PlannedDate
+
+SET @Result_Continue = 1
+
+]]></rule>
+  </businessRules>
+</dataController>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchPacketHistory" alias="qDespatchPacketHistory" created="2016-07-21T15:11:21" modified="2016-07-21T15:11:33" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="PacketHistoryID" name="PacketHistoryID" label="Packet History ID" primaryKey="true" />
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" />
+    <column fieldName="LocationCode" name="LocationCode" label="Location Code" />
+    <column fieldName="BranchID" name="BranchID" label="Branch ID" />
+    <column fieldName="BranchName" name="BranchName" label="Branch Name" />
+    <column fieldName="ProcessCode" name="ProcessCode" label="Process Code" />
+    <column fieldName="MovementDate" name="MovementDate" label="Movement Date" format="g" />
+    <column fieldName="ProductCode" name="ProductCode" label="Product Code" />
+    <column fieldName="Gcsl" name="GCSL" label="Gcsl" />
+    <column fieldName="Cube" name="Cube" label="Cube" />
+    <column fieldName="Lineal" name="Lineal" label="Lineal" />
+    <column fieldName="Pieces" name="Pieces" label="Pieces" />
+    <column fieldName="Packet" name="Packet" label="Packet" />
+    <column fieldName="StockOwnedByCode" name="StockOwnedByCode" label="Stock Owned By Code" />
+    <column fieldName="AvailableStatus" name="AvailableStatus" label="Available Status" />
+    <column fieldName="HoldReasonName" name="HoldReasonName" label="Hold Reason Name" />
+  </columns>
+</dataModel>

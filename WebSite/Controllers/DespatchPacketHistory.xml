@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="DespatchPacketHistory" conflictDetection="overwriteChanges" label="Despatch Packet History" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchPacketHistory"."PacketHistoryID" "PacketHistoryID"
+	,"qDespatchPacketHistory"."PacketNo" "PacketNo"
+	,"qDespatchPacketHistory"."LocationCode" "LocationCode"
+	,"qDespatchPacketHistory"."BranchID" "BranchID"
+	,"qDespatchPacketHistory"."BranchName" "BranchName"
+	,"qDespatchPacketHistory"."ProcessCode" "ProcessCode"
+	,"qDespatchPacketHistory"."MovementDate" "MovementDate"
+	,"qDespatchPacketHistory"."ProductCode" "ProductCode"
+	,"qDespatchPacketHistory"."GCSL" "Gcsl"
+	,"qDespatchPacketHistory"."Cube" "Cube"
+	,"qDespatchPacketHistory"."Lineal" "Lineal"
+	,"qDespatchPacketHistory"."Pieces" "Pieces"
+	,"qDespatchPacketHistory"."Packet" "Packet"
+	,"qDespatchPacketHistory"."StockOwnedByCode" "StockOwnedByCode"
+	,"qDespatchPacketHistory"."AvailableStatus" "AvailableStatus"
+	,"qDespatchPacketHistory"."HoldReasonName" "HoldReasonName"
+from "wa"."qDespatchPacketHistory" "qDespatchPacketHistory"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="PacketHistoryID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Packet History ID" />
+    <field name="PacketNo" type="String" allowNulls="false" label="Packet No" length="15" showInSummary="true" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" showInSummary="true" />
+    <field name="BranchID" type="Int32" allowNulls="false" label="Branch ID" showInSummary="true" />
+    <field name="BranchName" type="String" allowNulls="false" label="Branch Name" length="50" showInSummary="true" />
+    <field name="ProcessCode" type="String" allowNulls="false" label="Process Code" length="5" showInSummary="true" />
+    <field name="MovementDate" type="DateTime" allowNulls="false" dataFormatString="g" label="Movement Date" />
+    <field name="ProductCode" type="String" allowNulls="false" label="Product Code" length="50" />
+    <field name="Gcsl" type="String" label="Gcsl" readOnly="true" length="120" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Lineal" type="Decimal" label="Lineal" />
+    <field name="Pieces" type="Int32" allowNulls="false" label="Pieces" />
+    <field name="Packet" type="Int32" allowNulls="false" label="Packet" readOnly="true" />
+    <field name="StockOwnedByCode" type="String" label="Stock Owned By Code" length="50" />
+    <field name="AvailableStatus" type="String" allowNulls="false" label="Available Status" readOnly="true" length="11" />
+    <field name="HoldReasonName" type="String" label="Hold Reason Name" length="50" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Despatch Packet History">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="BranchID" columns="15" />
+        <dataField fieldName="BranchName" columns="50" />
+        <dataField fieldName="ProcessCode" columns="5" />
+        <dataField fieldName="MovementDate" columns="20" />
+        <dataField fieldName="ProductCode" columns="50" />
+        <dataField fieldName="Gcsl" />
+        <dataField fieldName="Cube" columns="15" />
+        <dataField fieldName="Lineal" columns="15" />
+        <dataField fieldName="Pieces" columns="15" />
+        <dataField fieldName="Packet" columns="15" />
+        <dataField fieldName="StockOwnedByCode" columns="50" />
+        <dataField fieldName="AvailableStatus" columns="11" />
+        <dataField fieldName="HoldReasonName" columns="50" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review wa Despatch Packet History">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="wa Despatch Packet History" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="BranchID" columns="15" />
+            <dataField fieldName="BranchName" columns="50" />
+            <dataField fieldName="ProcessCode" columns="5" />
+            <dataField fieldName="MovementDate" columns="20" />
+            <dataField fieldName="ProductCode" columns="50" />
+            <dataField fieldName="Gcsl" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="Packet" columns="15" />
+            <dataField fieldName="StockOwnedByCode" columns="50" />
+            <dataField fieldName="AvailableStatus" columns="11" />
+            <dataField fieldName="HoldReasonName" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New wa Despatch Packet History">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="New wa Despatch Packet History" newColumn="true">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="BranchID" columns="15" />
+            <dataField fieldName="BranchName" columns="50" />
+            <dataField fieldName="ProcessCode" columns="5" />
+            <dataField fieldName="MovementDate" columns="20" />
+            <dataField fieldName="ProductCode" columns="50" />
+            <dataField fieldName="Gcsl" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="Packet" columns="15" />
+            <dataField fieldName="StockOwnedByCode" columns="50" />
+            <dataField fieldName="AvailableStatus" columns="11" />
+            <dataField fieldName="HoldReasonName" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="New" commandArgument="grid1" />
+      <action id="a8" commandName="Duplicate" commandArgument="createForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

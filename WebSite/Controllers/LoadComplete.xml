@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadComplete" label="LoadComplete" conflictDetection="overwriteChanges" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <businessRules>
+    <rule id="r100" commandName="New" type="Sql" phase="Execute"><![CDATA[SET @TruckAndArrive = @Context_LoadName
+SET @LoadID = @Context_LoadID
+
+-- Run checks
+
+EXECUTE wa.pDespatchLoadComplete @LoadID, @Warnings OUTPUT, @Errors OUTPUT, @BusinessRules_UserName, 1
+
+]]></rule>
+  </businessRules>
+  <fields>
+    <field name="LoadID" type="Int32" label="Load ID" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" />
+    <field name="TruckAndArrive" type="String" label="Truck And Arrive" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" length="100">
+      <formula>ISNULL([TruckNo], 'Unknown') + ' Arrived At  ' + CONVERT(nvarchar(30), [ArriveTime], 8)</formula>
+    </field>
+    <field name="Warnings" type="String" allowQBE="false" allowSorting="false" label="Warnings" length="500" />
+    <field name="Errors" type="String" allowQBE="false" allowSorting="false" label="Errors" length="500" />
+  </fields>
+  <views>
+    <view id="createForm1" type="Form" label="Complete Load">
+      <categories>
+        <category headerText="Details" id="c1" newColumn="true">
+          <dataFields>
+            <dataField fieldName="Warnings" textMode="Static" readOnly="true" rows="5" />
+            <dataField fieldName="Errors" textMode="Static" readOnly="true" rows="5" />
+            <dataField fieldName="LoadID" columns="15" hidden="true" />
+            <dataField fieldName="TruckAndArrive" textMode="Static" readOnly="true" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+</dataController>

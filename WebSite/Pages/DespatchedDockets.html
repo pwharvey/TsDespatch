@@ -1,0 +1,14 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Despatch - Despatched Dockets</title>
+  </head>
+  <body data-authorize-roles="Despatch">
+    <!--The contents of this page will be overwritten by app generator. Set page property "Generate" to "First Time Only" to preserve changes.-->
+    <div data-flow="row">
+      <div id="view2" data-controller="DespatchDocket" data-view="grid1" data-filter-fields="LoadID" data-page-size="5" data-auto-hide="self"> </div>
+      <div id="view3" data-controller="DespatchPacket" data-view="grid1" data-filter-source="view2" data-filter-fields="DespatchID" data-page-size="5" data-auto-hide="self" data-show-modal-forms="true"> </div>
+    </div>
+  </body>
+</html>

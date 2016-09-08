@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadPickingOrder" conflictDetection="overwriteChanges" label="Load Picking Order" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchLoadPickingOrder"."LoadPickingOrderID" "LoadPickingOrderID"
+	,"qDespatchLoadPickingOrder"."LoadID" "LoadID"
+	,"qDespatchLoadPickingOrder"."PickingOrderNo" "PickingOrderNo"
+	,"qDespatchLoadPickingOrder"."LoadSize" "LoadSize"
+	,"qDespatchLoadPickingOrder"."DespatchID" "DespatchID"
+	,"qDespatchLoadPickingOrder"."PacketsPicked" "PacketsPicked"
+	,"qDespatchLoadPickingOrder"."PacketsVerified" "PacketsVerified"
+	,"qDespatchLoadPickingOrder"."NetCubeVerified" "NetCubeVerified"
+from "wa"."qDespatchLoadPickingOrder" "qDespatchLoadPickingOrder"
+]]></text>
+    </command>
+    <command id="LoadPickingOrderIDIdentityCommand" type="Text" event="Inserted">
+      <text><![CDATA[select @@identity]]></text>
+      <output>
+        <fieldOutput fieldName="LoadPickingOrderID" />
+      </output>
+    </command>
+  </commands>
+  <fields>
+    <field name="LoadPickingOrderID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Load Picking Order ID" readOnly="true" />
+    <field name="LoadID" type="Int32" allowNulls="false" label="Load ID" showInSummary="true" />
+    <field name="PickingOrderNo" type="Int32" allowNulls="false" label="Picking Order No" showInSummary="true" />
+    <field name="LoadSize" type="String" label="Load Size" length="1" showInSummary="true">
+      <items style="DropDownList">
+        <item value="F" text="Full Load" />
+        <item value="P" text="Part Load" />
+      </items>
+    </field>
+    <field name="DespatchID" type="Int32" label="Despatch No" showInSummary="true" />
+    <field name="PacketsPicked" type="Int32" label="Packets Picked" readOnly="true" showInSummary="true" />
+    <field name="PacketsVerified" type="Int32" label="Packets Verified" readOnly="true" />
+    <field name="NetCubeVerified" type="Decimal" label="Net Cube Verified" readOnly="true" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Picking Orders">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="LoadID" columns="15" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="LoadSize" columns="5" />
+        <dataField fieldName="PacketsPicked" columns="15" />
+        <dataField fieldName="PacketsVerified" columns="15" />
+        <dataField fieldName="NetCubeVerified" columns="15" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Picking Order">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="LoadID" columns="15" />
+            <dataField fieldName="PickingOrderNo" columns="15" textMode="Static" />
+            <dataField fieldName="LoadSize" columns="1" />
+          </dataFields>
+        </category>
+        <category headerText="Verified" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="PacketsPicked" columns="15" textMode="Static" />
+            <dataField fieldName="PacketsVerified" columns="15" textMode="Static" />
+            <dataField fieldName="NetCubeVerified" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="Review Picking Order">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="LoadID" columns="15" />
+            <dataField fieldName="PickingOrderNo" columns="15" textMode="Text" />
+            <dataField fieldName="LoadSize" columns="1" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action commandName="SQL" headerText="Picking" id="a101">
+        <data><![CDATA[DECLARE @URL nvarchar(max)
+
+SET @URL = '_blank:../../TsPicking/pages/completed?PickingOrderNo=' + CAST(@PickingOrderNo as nvarchar(50)) + '&_controller=PickingOrder&_commandName=Select'
+
+SET @Result_NavigateUrl = @URL]]></data>
+      </action>
+      <action id="a1" commandName="Edit" />
+      <action commandName="Custom" commandArgument="Delete" headerText="Delete" whenKeySelected="true" confirmation="Remove picking order and associated verified packets from this load?" id="a100" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" headerText="New" />
+    </actionGroup>
+    <actionGroup id="ag100" scope="ActionBar" headerText="Flat" flat="true">
+      <action commandName="SQL" headerText="Refresh" causesValidation="false" id="a101" cssClass="&lt;a class=&quot;ui-btn ui-btn-icon-left ui-btn-inline ui-icon-refresh&quot;&gt;refresh&lt;/a&gt;">
+        <data><![CDATA[SET @Result_Refresh = 1]]></data>
+      </action>
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+  <businessRules>
+    <rule id="r101" commandName="Custom" commandArgument="Delete" type="Sql" phase="Execute"><![CDATA[DECLARE @DisplayWarnings nvarchar(max)
+DECLARE @DisplayErrors nvarchar(max)
+
+EXECUTE wa.pDespatchLoadPickingOrderDelete @LoadPickingOrderID
+
+SET @Result_Continue = 1
+]]></rule>
+  </businessRules>
+</dataController>

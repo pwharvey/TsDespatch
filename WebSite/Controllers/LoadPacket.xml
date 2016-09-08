@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadPacket" conflictDetection="overwriteChanges" label="Load Packet" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchLoadPacket"."LoadPacketID" "LoadPacketID"
+	,"qDespatchLoadPacket"."OrderItemID" "OrderItemID"
+	,"qDespatchPickingOrderItem"."PickingOrderNo" "PickingOrderNo"
+	,"qDespatchPickingOrderItem"."PickingOrderItemNo" "PickingOrderItemNo"
+	,"qDespatchLoadPacket"."PacketNo" "PacketNo"
+	,"qDespatchPacketHistory"."GCSL" "PacketHistoryGcsl"
+	,"qDespatchPacketHistory"."Cube" "PacketHistoryCube"
+	,"qDespatchLoadPacket"."VerifiedTime" "VerifiedTime"
+	,"qDespatchLoadPacket"."VerifiedBy" "VerifiedBy"
+	,"qDespatchLoadPacket"."Errors" "Errors"
+	,"qDespatchLoadPacket"."Posted" "Posted"
+	,"qDespatchLoadPacket"."LoadID" "LoadID"
+	,"qDespatchLoadPacket"."Verified" "Verified"
+	,"qDespatchLoadPacket"."OrderNo" "OrderNo"
+	,"qDespatchLoadPacket"."Warnings" "Warnings"
+	,"qDespatchLoadPacket"."PacketHistoryID" "PacketHistoryID"
+	,"qDespatchLoadPacket"."PostedPacketHistoryID" "PostedPacketHistoryID"
+	,"qDespatchLoadPacket"."Unpicked" "Unpicked"
+from "wa"."qDespatchLoadPacket" "qDespatchLoadPacket"
+	left join "wa"."qDespatchPacketHistory" "qDespatchPacketHistory" on "qDespatchLoadPacket"."PacketHistoryID" = "qDespatchPacketHistory"."PacketHistoryID"
+	left join "wa"."qDespatchPickingOrderItem" "qDespatchPickingOrderItem" on "qDespatchLoadPacket"."OrderItemID" = "qDespatchPickingOrderItem"."OrderItemID"
+]]></text>
+    </command>
+    <command id="LoadPacketIDIdentityCommand" type="Text" event="Inserted">
+      <text><![CDATA[select @@identity]]></text>
+      <output>
+        <fieldOutput fieldName="LoadPacketID" />
+      </output>
+    </command>
+  </commands>
+  <fields>
+    <field name="LoadPacketID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Load Packet ID" readOnly="true" />
+    <field name="OrderItemID" type="Int32" label="Order Item ID" showInSummary="true" />
+    <field name="PickingOrderNo" type="Int32" readOnly="true" label="Picking Order No" />
+    <field name="PickingOrderItemNo" type="Int32" readOnly="true" label="Item No" />
+    <field name="PacketNo" type="String" allowNulls="false" label="Packet No" length="15" showInSummary="true" causesCalculate="true" />
+    <field name="PacketHistoryGcsl" type="String" label="Gcsl" readOnly="true" length="120" />
+    <field name="PacketHistoryCube" type="Decimal" readOnly="true" label="Packet History Cube" />
+    <field name="VerifiedTime" type="DateTime" allowNulls="false" dataFormatString="g" label="Verified Time" showInSummary="true" />
+    <field name="VerifiedBy" type="String" allowNulls="false" label="Verified By" length="50" showInSummary="true" />
+    <field name="Errors" type="String" label="Errors" length="500" showInSummary="true" />
+    <field name="Posted" type="Boolean" allowNulls="false" label="Posted" />
+    <field name="LoadID" type="Int32" allowNulls="false" label="Load ID" />
+    <field name="Verified" type="Boolean" allowNulls="false" label="Verified" />
+    <field name="OrderNo" type="Int32" label="Picking Order No" />
+    <field name="Warnings" type="String" allowQBE="false" allowSorting="false" label="Warnings" />
+    <field name="PostedPacketHistoryID" type="Int32" label="Posted Packet History ID" />
+    <field name="Unpicked" type="Boolean" allowNulls="false" label="Unpicked" />
+    <field name="LastPacketNo" type="String" label="Last Packet No" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" length="50" />
+    <field name="LastError" type="String" label="Last Error" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" length="500" />
+    <field name="LastWarning" type="String" label="Last Warning" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" length="500" />
+    <field name="PacketHistoryID" type="Int32" allowNulls="false" label="Packet History ID" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="true" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Verified">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="PickingOrderItemNo" columns="15" />
+        <dataField fieldName="PacketHistoryGcsl" />
+        <dataField fieldName="VerifiedTime" columns="20" hidden="true" />
+        <dataField fieldName="VerifiedBy" columns="50" hidden="true" />
+        <dataField fieldName="Verified" hidden="true" />
+        <dataField fieldName="Unpicked" />
+        <dataField fieldName="Warnings" rows="5" />
+        <dataField fieldName="Errors" />
+        <dataField fieldName="LoadID" columns="15" hidden="true" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Verified Packet">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="PickingOrderNo" columns="15" />
+            <dataField fieldName="PickingOrderItemNo" columns="15" />
+            <dataField fieldName="PacketHistoryGcsl" rows="2" />
+            <dataField fieldName="OrderItemID" columns="15" hidden="true" />
+            <dataField fieldName="LoadID" columns="15" hidden="true" />
+            <dataField fieldName="OrderNo" columns="15" hidden="true" />
+          </dataFields>
+        </category>
+        <category headerText="Verified" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="VerifiedTime" columns="20" />
+            <dataField fieldName="VerifiedBy" columns="50" />
+            <dataField fieldName="Verified" />
+            <dataField fieldName="Unpicked" />
+            <dataField fieldName="Posted" hidden="true" />
+          </dataFields>
+        </category>
+        <category headerText="Errors" id="c3">
+          <dataFields>
+            <dataField fieldName="Warnings" rows="5" />
+            <dataField fieldName="Errors" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="Verify Packet">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="PickingOrderNo" columns="15" hidden="true" />
+            <dataField fieldName="PickingOrderItemNo" columns="15" hidden="true" />
+            <dataField fieldName="PacketHistoryGcsl" hidden="true" />
+            <dataField fieldName="PacketHistoryCube" columns="15" hidden="true" />
+            <dataField fieldName="VerifiedTime" columns="20" textMode="Static" />
+            <dataField fieldName="VerifiedBy" columns="50" hidden="true" textMode="Static" />
+            <dataField fieldName="Verified" hidden="true" />
+            <dataField fieldName="Errors" hidden="true" />
+            <dataField fieldName="LoadID" columns="15" hidden="true" />
+            <dataField fieldName="Warnings" rows="5" hidden="true" />
+            <dataField fieldName="OrderItemID" columns="15" hidden="true" />
+            <dataField fieldName="OrderNo" columns="15" hidden="true" />
+            <dataField fieldName="PacketHistoryID" columns="15" hidden="true" />
+          </dataFields>
+        </category>
+        <category headerText="Last Verified" id="c2">
+          <dataFields>
+            <dataField fieldName="LastError" rows="5" />
+            <dataField fieldName="LastPacketNo" columns="50" />
+            <dataField fieldName="LastWarning" rows="5" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a3" commandName="Delete" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action commandName="Insert" commandArgument="CANCEL" headerText="Close" whenLastCommandName="New" id="a100" causesValidation="false" />
+    </actionGroup>
+    <actionGroup id="ag100" scope="ActionBar" headerText="Flat" flat="true">
+      <action commandName="SQL" headerText="Refresh" causesValidation="false" id="a101" cssClass="&lt;a class=&quot;ui-btn ui-btn-icon-left ui-btn-inline ui-icon-refresh&quot;&gt;refresh&lt;/a&gt;">
+        <data><![CDATA[SET @Result_Refresh = 1]]></data>
+      </action>
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+  <businessRules>
+    <rule id="r100" commandName="New" type="Sql" phase="Execute"><![CDATA[SET @LoadID = @Session_LoadID
+--SET @PickingOrderNoDisplay = @PickingOrderNo
+SET @VerifiedTime = GetDate()
+SET @VerifiedBy = ISNULL(@BusinessRules_UserName,'unknown')
+SET @Verified = 0
+]]></rule>
+    <rule id="r101" commandName="Calculate" view="createForm1" type="Sql" phase="Execute"><![CDATA[IF @Arguments_Trigger = 'PacketNo'
+BEGIN
+
+  -- do calculations based on the packetno entered
+  
+  EXECUTE wa.pDespatchLoadPacket_PacketNoCalculate
+	@LoadID
+	,NULL
+	,@PacketNo
+	,@PacketHistoryID OUTPUT
+	,@OrderNo OUTPUT
+	,@OrderItemID OUTPUT
+	,@Verified OUTPUT
+	,@Errors OUTPUT
+	,@Warnings OUTPUT
+	
+	
+	-- insert record - regardless of errors for quick scanning 
+	
+	DECLARE @LoadPacketIDInserted int
+	
+	EXECUTE wa.pDespatchLoadPacketInsert 
+	 @LoadID
+	,@PacketNo
+	,@PacketHistoryID
+	,@OrderNo
+	,@OrderItemID
+	,@Verified
+	,@BusinessRules_UserName
+	,@Errors
+	,@Warnings
+	,@LoadPacketIDInserted OUTPUT
+  
+  
+--SET @Result_ShowMessage = @Errors
+
+	-- set record back to empty ready for the next scan
+
+	SET @LastPacketNo = @PacketNo
+	SET @LastError = @Errors
+	SET @LastWarning = @Warnings
+	SET @PacketNo = null
+	Set @PacketHistoryID = null
+	SET @OrderItemID = null 
+	
+	SET @Result_Focus = 'PacketNo'
+	
+	SET @BusinessRules_PreventDefault = 1
+	
+END]]></rule>
+    <rule id="r102" commandName="Insert" commandArgument="CANCEL" type="Sql" phase="Before"><![CDATA[SET @BusinessRules_PreventDefault = 1
+--SET @PacketNo = 'Cancel']]></rule>
+  </businessRules>
+</dataController>

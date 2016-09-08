@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadPlannedCreateExport" label="LoadPlannedCreateExport" conflictDetection="overwriteChanges" handler="TimberSmart.Rules.LoadPlannedCreateExportBusinessRules" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <businessRules>
+    <rule id="r100" commandName="New" type="Sql" phase="Execute"><![CDATA[SET @PlannedDate = GETDATE()
+]]></rule>
+  </businessRules>
+  <fields>
+    <field name="ReceivingCity" type="String" allowNulls="false" label="Receiving City" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" length="50" />
+    <field name="CartageInstructions" type="String" label="Cartage Instructions" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" />
+    <field name="PlannedDate" type="DateTime" allowNulls="false" label="Planned Date" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" dataFormatString="D" />
+    <field name="Trucks" type="Int16" allowNulls="false" label="Trucks" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" />
+    <field name="ReceivingName" type="String" label="Receiving Name" length="50" showInSummary="true" allowNulls="false">
+      <items style="DropDownList">
+        <item value="Breakbulk EXPORT" text="Breakbulk EXPORT" />
+        <item value="Cans EXPORT" text="Cans EXPORT" />
+        <item value="Units EXPORT" text="Units EXPORT" />
+        <item value="FLATRACK" text="FLATRACK" />
+      </items>
+    </field>
+  </fields>
+  <views>
+    <view id="createForm1" type="Form" label="Create Domestic Loads">
+      <categories>
+        <category headerText="Details" id="c1" newColumn="true">
+          <dataFields>
+            <dataField fieldName="ReceivingCity" columns="50" />
+            <dataField fieldName="CartageInstructions" rows="5" />
+            <dataField fieldName="PlannedDate" columns="15" />
+            <dataField fieldName="Trucks" columns="15" />
+            <dataField fieldName="ReceivingName" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+</dataController>

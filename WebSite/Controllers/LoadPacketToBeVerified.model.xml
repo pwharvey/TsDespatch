@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchLoadPacketToBeVerified" alias="qDespatchLoadPacketToBeVerified" created="2016-07-13T15:16:55" modified="2016-07-13T15:23:18" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="PickingOrderNo" name="PickingOrderNo" label="Picking Order No" />
+    <column fieldName="OrderItemNo" name="OrderItemNo" label="Order Item No" />
+    <column fieldName="PacketHistoryID" name="PacketHistoryID" label="Packet History ID" primaryKey="true" />
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" />
+    <column fieldName="Gcsl" name="GCSL" label="Gcsl" />
+    <column name="LoadID" fieldName="LoadID" label="Load ID" />
+  </columns>
+</dataModel>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchLoadPickingOrder" alias="qDespatchLoadPickingOrder" created="2016-07-13T13:25:54" modified="2016-08-07T10:47:46" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="LoadPickingOrderID" name="LoadPickingOrderID" label="Load Picking Order ID" primaryKey="true" />
+    <column fieldName="LoadID" name="LoadID" label="Load ID" />
+    <column fieldName="PickingOrderNo" name="PickingOrderNo" label="Picking Order No" />
+    <column fieldName="LoadSize" name="LoadSize" label="Load Size" />
+    <column fieldName="DespatchID" name="DespatchID" label="Despatch ID" />
+    <column fieldName="PacketsPicked" name="PacketsPicked" label="Packets Picked" />
+    <column fieldName="PacketsVerified" name="PacketsVerified" label="Packets Verified" />
+    <column name="NetCubeVerified" fieldName="NetCubeVerified" label="Net Cube Verified" format="" />
+  </columns>
+</dataModel>

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadCompleted" conflictDetection="overwriteChanges" label="Load Completed" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchLoadCompleted"."LoadID" "LoadID"
+	,"qDespatchLoadCompleted"."BranchID" "BranchID"
+	,"qDespatchLoadCompleted"."BranchName" "BranchName"
+	,"qDespatchLoadCompleted"."TruckID" "TruckID"
+	,"qDespatchLoadCompleted"."TruckNo" "TruckNo"
+	,"qDespatchLoadCompleted"."ArriveTime" "ArriveTime"
+	,"qDespatchLoadCompleted"."DespatchTime" "DespatchTime"
+	,"qDespatchLoadCompleted"."LoadName" "LoadName"
+from "wa"."qDespatchLoadCompleted" "qDespatchLoadCompleted"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="LoadID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Load ID" />
+    <field name="BranchID" type="Int32" allowNulls="false" label="Branch ID" showInSummary="true" />
+    <field name="BranchName" type="String" allowNulls="false" label="Branch Name" length="50" showInSummary="true" />
+    <field name="TruckID" type="Int32" allowNulls="false" label="Truck ID" showInSummary="true" />
+    <field name="TruckNo" type="String" label="Truck No" length="250" showInSummary="true" />
+    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrive Time" showInSummary="true" />
+    <field name="DespatchTime" type="DateTime" dataFormatString="g" label="Despatch Time" showInSummary="true" />
+    <field name="LoadName" type="String" label="Load Name" readOnly="true" length="327" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Despatched Loads" sortExpression="[DespatchTime],[TruckNo]">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="TruckNo" columns="10" />
+        <dataField fieldName="DespatchTime" columns="20" />
+        <dataField fieldName="ArriveTime" columns="20" />
+        <dataField fieldName="BranchName" columns="50" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Despatched Load">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="TruckNo" />
+            <dataField fieldName="ArriveTime" columns="20" />
+            <dataField fieldName="BranchName" columns="50" />
+          </dataFields>
+        </category>
+        <category headerText="Despatched" id="c2">
+          <dataFields>
+            <dataField fieldName="DespatchTime" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action commandName="Custom" commandArgument="Undo" headerText="Undo" id="a100" />
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+  <businessRules>
+    <rule id="r100" commandName="Custom" commandArgument="Undo" type="Sql" phase="Execute"><![CDATA[DECLARE @DisplayWarnings nvarchar(max)
+DECLARE @DisplayErrors nvarchar(max)
+
+EXECUTE wa.pDespatchLoadUndo @LoadID, @DisplayWarnings OUTPUT, @DisplayErrors OUTPUT, @BusinessRules_UserName
+
+IF NOT @DisplayErrors IS NULL
+BEGIN
+    SET @Result_ShowMessage = @DisplayErrors
+	SET @Result_Continue = 0
+END
+ELSE
+BEGIN
+	SET @Result_Continue = 1
+END]]></rule>
+  </businessRules>
+</dataController>

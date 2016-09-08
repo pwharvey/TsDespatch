@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="DespatchDocket" conflictDetection="overwriteChanges" label="Despatch Docket" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchDespatchDocket"."LoadID" "LoadID"
+	,"qDespatchLoadCompleted"."LoadName" "LoadName"
+	,"qDespatchDespatchDocket"."DespatchID" "DespatchID"
+	,"qDespatchDespatchDocket"."DespatchDocketNo" "DespatchDocketNo"
+	,"qDespatchDespatchDocket"."DespatchDate" "DespatchDate"
+	,"qDespatchDespatchDocket"."Customer" "Customer"
+	,"qDespatchDespatchDocket"."OrderNo" "OrderNo"
+	,"qDespatchDespatchDocket"."PickingOrderNo" "PickingOrderNo"
+	,"qDespatchDespatchDocket"."DespatchTypeName" "DespatchTypeName"
+	,"qDespatchDespatchDocket"."TruckID" "TruckID"
+	,"qDespatchDespatchDocket"."CarrierName" "CarrierName"
+	,"qDespatchDespatchDocket"."DeliverToName" "DeliverToName"
+	,"qDespatchDespatchDocket"."DeliverToAddress1" "DeliverToAddress1"
+	,"qDespatchDespatchDocket"."DeliverToAddress2" "DeliverToAddress2"
+	,"qDespatchDespatchDocket"."DeliverToCity" "DeliverToCity"
+	,"qDespatchDespatchDocket"."LoadSize" "LoadSize"
+	,"qDespatchDespatchDocket"."Time" "Time"
+	,"qDespatchDespatchDocket"."LocationCode" "LocationCode"
+	,"qDespatchDespatchDocket"."Return" "Return"
+	,"qDespatchDespatchDocket"."TotalNetCube" "TotalNetCube"
+	,"qDespatchDespatchDocket"."ArriveTime" "ArriveTime"
+	,"qDespatchDespatchDocket"."DespatchTime" "DespatchTime"
+	,"qDespatchDespatchDocket"."InvoiceNo" "InvoiceNo"
+	,"qDespatchDespatchDocket"."InvoiceDate" "InvoiceDate"
+from "wa"."qDespatchDespatchDocket" "qDespatchDespatchDocket"
+	left join "wa"."qDespatchLoadCompleted" "qDespatchLoadCompleted" on "qDespatchDespatchDocket"."LoadID" = "qDespatchLoadCompleted"."LoadID"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="LoadID" type="Int32" label="Load ID" showInSummary="true">
+      <items style="Lookup" dataController="LoadCompleted" dataValueField="LoadName" dataView="grid1" />
+    </field>
+    <field name="LoadName" type="String" label="Load Name" readOnly="true" length="20" />
+    <field name="DespatchID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Despatch ID" />
+    <field name="DespatchDocketNo" type="Int32" allowNulls="false" label="Despatch Docket No" showInSummary="true" />
+    <field name="DespatchDate" type="DateTime" allowNulls="false" dataFormatString="D" label="Despatch Date" showInSummary="true" />
+    <field name="Customer" type="String" label="Customer" length="5" showInSummary="true" />
+    <field name="OrderNo" type="Int32" label="Order No" showInSummary="true" />
+    <field name="PickingOrderNo" type="Int32" label="Picking Order No" />
+    <field name="DespatchTypeName" type="String" label="Despatch Type" length="50" />
+    <field name="TruckID" type="String" label="Truck" length="50" />
+    <field name="CarrierName" type="String" label="Carrier Name" length="50" />
+    <field name="DeliverToName" type="String" label="Deliver To Name" length="100" />
+    <field name="DeliverToAddress1" type="String" label="Deliver To Address1" length="150" />
+    <field name="DeliverToAddress2" type="String" label="Deliver To Address2" length="100" />
+    <field name="DeliverToCity" type="String" label="Deliver To City" length="50" />
+    <field name="LoadSize" type="String" label="Load Size" length="1" />
+    <field name="Time" type="String" label="Time" length="4" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Deliver From" length="10" />
+    <field name="Return" type="Boolean" label="Return" />
+    <field name="TotalNetCube" type="Decimal" allowNulls="false" label="Total Net Cube" />
+    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrive Time" />
+    <field name="DespatchTime" type="DateTime" dataFormatString="g" label="Despatch Time" />
+    <field name="InvoiceNo" type="Int32" label="Invoice No" />
+    <field name="InvoiceDate" type="DateTime" dataFormatString="g" label="Invoice Date" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Despatch Docket">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="LoadID" aliasFieldName="LoadName" columns="10" toolTip="View Load Details" />
+        <dataField fieldName="DespatchDocketNo" columns="10" />
+        <dataField fieldName="Customer" columns="10" />
+        <dataField fieldName="OrderNo" columns="10" />
+        <dataField fieldName="PickingOrderNo" columns="10" />
+        <dataField fieldName="DespatchTypeName" columns="15" />
+        <dataField fieldName="DeliverToName" columns="15" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="TotalNetCube" columns="5" />
+        <dataField fieldName="DespatchDate" columns="10" hidden="true" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Despatch Docket">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="LoadID" aliasFieldName="LoadName" hyperlinkFormatString="~/pages/LoadCompleted?LoadID={LoadID}&amp;_controller=LoadCompleted&amp;_command=Select&amp;_argument=editForm1" />
+            <dataField fieldName="DespatchDocketNo" columns="15" />
+            <dataField fieldName="DespatchDate" columns="10" />
+            <dataField fieldName="Customer" columns="5" />
+            <dataField fieldName="OrderNo" columns="15" />
+            <dataField fieldName="PickingOrderNo" columns="15" />
+            <dataField fieldName="DespatchTypeName" columns="50" />
+            <dataField fieldName="Return" />
+            <dataField fieldName="TotalNetCube" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Load" id="c4">
+          <dataFields>
+            <dataField fieldName="TruckID" columns="50" />
+            <dataField fieldName="ArriveTime" columns="20" />
+            <dataField fieldName="DespatchTime" columns="20" />
+          </dataFields>
+        </category>
+        <category headerText="Delivery" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="CarrierName" columns="50" />
+            <dataField fieldName="LoadSize" columns="1" />
+            <dataField fieldName="DeliverToName" />
+            <dataField fieldName="DeliverToAddress1" />
+            <dataField fieldName="DeliverToAddress2" />
+            <dataField fieldName="DeliverToCity" columns="50" />
+          </dataFields>
+        </category>
+        <category headerText="Invoice" id="c3">
+          <dataFields>
+            <dataField fieldName="InvoiceNo" columns="15" />
+            <dataField fieldName="InvoiceDate" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

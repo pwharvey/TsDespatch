@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="PickingOrder" conflictDetection="overwriteChanges" label="Picking Order" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchPickingOrder"."OrderNo" "OrderNo"
+	,"qDespatchPickingOrder"."DeliverToName" "DeliverToName"
+	,"qDespatchPickingOrder"."DeliverToAddress1" "DeliverToAddress1"
+	,"qDespatchPickingOrder"."DeliverToAddress2" "DeliverToAddress2"
+	,"qDespatchPickingOrder"."DeliverToCity" "DeliverToCity"
+	,"qDespatchPickingOrder"."CartageInstructions" "CartageInstructions"
+from "wa"."qDespatchPickingOrder" "qDespatchPickingOrder"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="OrderNo" type="Int32" allowNulls="false" isPrimaryKey="true" label="Order No" />
+    <field name="DeliverToName" type="String" label="Deliver To Name" length="100" showInSummary="true" />
+    <field name="DeliverToAddress1" type="String" label="Deliver To Address 1" length="150" showInSummary="true" />
+    <field name="DeliverToAddress2" type="String" label="Deliver To Address 2" length="100" showInSummary="true" />
+    <field name="DeliverToCity" type="String" label="Deliver To City" length="50" showInSummary="true" />
+    <field name="CartageInstructions" type="String" allowQBE="false" allowSorting="false" label="Cartage Instructions" showInSummary="true" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Picking Order">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="OrderNo" columns="15" />
+        <dataField fieldName="DeliverToName" />
+        <dataField fieldName="DeliverToAddress1" />
+        <dataField fieldName="DeliverToAddress2" />
+        <dataField fieldName="DeliverToCity" columns="50" />
+        <dataField fieldName="CartageInstructions" rows="5" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Picking Order">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Details" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="DeliverToName" />
+            <dataField fieldName="DeliverToAddress1" />
+            <dataField fieldName="DeliverToAddress2" />
+            <dataField fieldName="DeliverToCity" columns="50" />
+            <dataField fieldName="CartageInstructions" rows="5" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

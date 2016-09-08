@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="DespatchPacket" conflictDetection="overwriteChanges" label="Despatch Packet" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qDespatchDespatchPacket"."DespatchID" "DespatchID"
+	,"qDespatchDespatchPacket"."PacketHistoryID" "PacketHistoryID"
+	,"qDespatchDespatchPacket"."CustomerCode" "CustomerCode"
+	,"qDespatchDespatchPacket"."CustomerName" "CustomerName"
+	,"qDespatchDespatchPacket"."OrderNo" "OrderNo"
+	,"qDespatchDespatchPacket"."OrderItemNo" "OrderItemNo"
+	,"qDespatchDespatchPacket"."PacketNo" "PacketNo"
+	,"qDespatchDespatchPacket"."GradeCode" "GradeCode"
+	,"qDespatchDespatchPacket"."TreatmentCode" "TreatmentCode"
+	,"qDespatchDespatchPacket"."DrynessCode" "DrynessCode"
+	,"qDespatchDespatchPacket"."FinishCode" "FinishCode"
+	,"qDespatchDespatchPacket"."Width" "Width"
+	,"qDespatchDespatchPacket"."Thickness" "Thickness"
+	,"qDespatchDespatchPacket"."Length" "Length"
+	,"qDespatchDespatchPacket"."Cube" "Cube"
+	,"qDespatchDespatchPacket"."Lineal" "Lineal"
+	,"qDespatchDespatchPacket"."Pieces" "Pieces"
+	,"qDespatchDespatchPacket"."NetCube" "NetCube"
+from "wa"."qDespatchDespatchPacket" "qDespatchDespatchPacket"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="DespatchID" type="Int32" label="Despatch ID" showInSummary="true" />
+    <field name="PacketHistoryID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Packet History ID" />
+    <field name="CustomerCode" type="String" allowNulls="false" label="Customer Code" length="5" showInSummary="true" />
+    <field name="CustomerName" type="String" allowNulls="false" label="Customer Name" length="255" showInSummary="true" />
+    <field name="OrderNo" type="Int32" allowNulls="false" label="Order No" showInSummary="true" />
+    <field name="OrderItemNo" type="Int32" allowNulls="false" label="Order Item No" showInSummary="true" />
+    <field name="PacketNo" type="String" allowNulls="false" label="Packet No" length="15" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="Decimal" allowNulls="false" label="Length" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Lineal" type="Decimal" label="Lineal" />
+    <field name="Pieces" type="Int32" allowNulls="false" label="Pieces" />
+    <field name="NetCube" type="Decimal" allowNulls="false" dataFormatString="c" label="Net Cube" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Despatch Packet" sortExpression="[OrderNo] [OrderItemNo] [PacketNo]">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="DespatchID" columns="15" />
+        <dataField fieldName="OrderNo" columns="15" />
+        <dataField fieldName="OrderItemNo" columns="15" />
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="GradeCode" columns="8" />
+        <dataField fieldName="TreatmentCode" columns="5" />
+        <dataField fieldName="DrynessCode" columns="3" />
+        <dataField fieldName="FinishCode" columns="3" />
+        <dataField fieldName="Width" columns="15" />
+        <dataField fieldName="Thickness" columns="15" />
+        <dataField fieldName="Length" columns="15" />
+        <dataField fieldName="Cube" columns="15" />
+        <dataField fieldName="Lineal" columns="15" />
+        <dataField fieldName="Pieces" columns="15" />
+        <dataField fieldName="NetCube" columns="15" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review wa Despatch Packet">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="wa Despatch Packet" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="DespatchID" columns="15" />
+            <dataField fieldName="CustomerCode" columns="5" />
+            <dataField fieldName="CustomerName" />
+            <dataField fieldName="OrderNo" columns="15" />
+            <dataField fieldName="OrderItemNo" columns="15" />
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="NetCube" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

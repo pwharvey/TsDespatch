@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchLoad" alias="qDespatchLoad" created="2016-07-13T13:25:13" modified="2016-08-29T13:06:27" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="LoadID" name="LoadID" label="Load ID" primaryKey="true" />
+    <column fieldName="BranchID" name="BranchID" label="Branch ID" />
+    <column fieldName="BranchName" name="BranchName" label="Branch Name" />
+    <column fieldName="TruckID" name="TruckID" label="Truck ID" />
+    <column fieldName="TruckNo" name="TruckNo" label="Truck No" />
+    <column fieldName="ArriveTime" name="ArriveTime" label="Arrive Time" format="g" />
+    <column fieldName="DespatchTime" name="DespatchTime" label="Despatch Time" format="g" />
+    <column fieldName="Completed" name="Completed" label="Completed" />
+    <column name="Warnings" fieldName="Warnings" label="Warnings" />
+    <column name="Errors" fieldName="Errors" label="Errors" />
+    <column name="LoadName" fieldName="LoadName" label="Load Name" />
+  </columns>
+</dataModel>

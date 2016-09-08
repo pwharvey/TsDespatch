@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qDespatchPickingOrder" alias="qDespatchPickingOrder" created="2016-08-08T14:31:57" modified="2016-08-08T15:50:21" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" primaryKey="true" />
+    <column name="DeliverToName" fieldName="DeliverToName" label="Deliver To Name" />
+    <column name="DeliverToAddress1" fieldName="DeliverToAddress1" label="Deliver To Address 1" />
+    <column name="DeliverToAddress2" fieldName="DeliverToAddress2" label="Deliver To Address 2" />
+    <column name="DeliverToCity" fieldName="DeliverToCity" label="Deliver To City" />
+    <column name="CartageInstructions" fieldName="CartageInstructions" label="Cartage Instructions" />
+  </columns>
+</dataModel>

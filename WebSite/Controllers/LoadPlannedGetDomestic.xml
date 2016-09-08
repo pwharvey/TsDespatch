@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="LoadPlannedGetDomestic" label="LoadPlannedGetDomestic" conflictDetection="overwriteChanges" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <businessRules>
+    <rule id="r100" commandName="New" type="Sql" phase="Execute"><![CDATA[SET @PlannedDate = GETDATE()
+]]></rule>
+  </businessRules>
+  <fields>
+    <field name="PlannedDate" type="DateTime" allowNulls="false" label="Planned Date" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false" dataFormatString="D" />
+  </fields>
+  <views>
+    <view id="createForm1" type="Form" label="Get Domestic Loads">
+      <categories>
+        <category headerText="Details" id="c1" newColumn="true">
+          <dataFields>
+            <dataField fieldName="PlannedDate" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+</dataController>
