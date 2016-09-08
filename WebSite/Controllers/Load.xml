@@ -27,7 +27,7 @@ from "wa"."qDespatchLoad" "qDespatchLoad"
       <items style="Lookup" dataController="Truck" dataView="grid1" dataTextField="TruckNo" dataValueField="TruckID" />
     </field>
     <field name="TruckNo" type="String" label="Truck No" length="250" showInSummary="true" />
-    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrive Time" showInSummary="true" />
+    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrived At" showInSummary="true" />
     <field name="DespatchTime" type="DateTime" dataFormatString="g" label="Despatch Time" />
     <field name="Completed" type="Boolean" allowNulls="false" label="Completed" />
     <field name="Warnings" type="String" allowQBE="false" allowSorting="false" label="Warnings" />
